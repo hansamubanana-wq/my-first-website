@@ -1,9 +1,9 @@
 /* --- 1. ローディング制御 --- */
 window.addEventListener('load', () => {
-    // ページ読み込み完了から少し待ってローディングを消す
+    // ページ読み込み完了から2秒後にローディングを消す
     setTimeout(() => {
         document.body.classList.add('loaded');
-    }, 2000); // 2秒ローディングを表示
+    }, 2000);
 });
 
 /* --- 2. スクロールアニメーション --- */
@@ -16,32 +16,58 @@ const observer = new IntersectionObserver((entries) => {
 });
 document.querySelectorAll('.fade-in-scroll').forEach((el) => observer.observe(el));
 
-/* --- 3. カスタムカーソル --- */
+/* --- 3. ダーク/ライトモード切替 --- */
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+const icon = themeToggle.querySelector('i');
+
+// 保存された設定があれば読み込む
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme) {
+    body.setAttribute('data-theme', currentTheme);
+    if (currentTheme === 'light') {
+        icon.classList.replace('fa-sun', 'fa-moon');
+    }
+}
+
+themeToggle.addEventListener('click', () => {
+    if (body.getAttribute('data-theme') === 'light') {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+        icon.classList.replace('fa-moon', 'fa-sun');
+    } else {
+        body.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        icon.classList.replace('fa-sun', 'fa-moon');
+    }
+});
+
+/* --- 4. カスタムカーソル（PCのみ） --- */
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
 
-window.addEventListener('mousemove', (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
+// スマホでエラーが出ないようにチェック
+if (window.matchMedia("(min-width: 769px)").matches) {
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
 
-    // ドットは即座に移動
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
 
-    // 枠線は少し遅れて移動（アニメーション）
-    cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-    }, { duration: 500, fill: "forwards" });
-});
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: "forwards" });
+    });
 
-// リンクに乗った時の反応
-document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-});
+    document.querySelectorAll('a, button, input, textarea').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+    });
+}
 
-/* --- 4. タイプライター演出 --- */
+/* --- 5. タイプライター演出 --- */
 const texts = ["Web Developer", "UI/UX Designer", "Creative Thinker"];
 let count = 0;
 let index = 0;
@@ -55,18 +81,21 @@ let letter = "";
     currentText = texts[count];
     letter = currentText.slice(0, ++index);
 
-    document.querySelector('.typewriter-text').textContent = letter;
+    const typeTarget = document.querySelector('.typewriter-text');
+    if(typeTarget) {
+        typeTarget.textContent = letter;
+    }
 
     if (letter.length === currentText.length) {
         count++;
         index = 0;
-        setTimeout(type, 2000); // 文字が打ち終わったら2秒待つ
+        setTimeout(type, 2000);
     } else {
-        setTimeout(type, 100); // 打つスピード
+        setTimeout(type, 100);
     }
 }());
 
-/* --- 5. 背景パーティクル（動く幾何学模様） --- */
+/* --- 6. 背景パーティクル --- */
 const canvas = document.getElementById('particles-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -78,10 +107,10 @@ class Particle {
     constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.directionX = (Math.random() * 2) - 1; // 動くスピード
+        this.directionX = (Math.random() * 2) - 1;
         this.directionY = (Math.random() * 2) - 1;
         this.size = Math.random() * 2;
-        this.color = '#00f2ea';
+        this.color = '#00f2ea'; // 基本色（CSSでopacity制御）
     }
     draw() {
         ctx.beginPath();
@@ -100,7 +129,7 @@ class Particle {
 
 function init() {
     particlesArray = [];
-    let numberOfParticles = (canvas.height * canvas.width) / 9000; // 画面サイズに合わせて数を調整
+    let numberOfParticles = (canvas.height * canvas.width) / 9000;
     for (let i = 0; i < numberOfParticles; i++) {
         particlesArray.push(new Particle());
     }
@@ -109,14 +138,12 @@ function init() {
 function animate() {
     requestAnimationFrame(animate);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
     for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
     }
     connect();
 }
 
-// 近くの点同士を線で結ぶ
 function connect() {
     for (let a = 0; a < particlesArray.length; a++) {
         for (let b = a; b < particlesArray.length; b++) {
@@ -143,16 +170,14 @@ window.addEventListener('resize', () => {
 init();
 animate();
 
-/* --- 6. スマホメニューの開閉 --- */
+/* --- 7. スマホメニュー --- */
 const hamburger = document.querySelector('.hamburger');
 const mobileMenu = document.querySelector('.mobile-menu');
 
 hamburger.addEventListener('click', () => {
     mobileMenu.classList.toggle('active');
-    // ハンバーガーのアニメーション用クラス（必要なら追加）
 });
 
-// メニューのリンクをクリックしたら閉じる
 document.querySelectorAll('.mobile-menu a').forEach(link => {
     link.addEventListener('click', () => {
         mobileMenu.classList.remove('active');

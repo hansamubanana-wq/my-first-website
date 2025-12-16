@@ -1,73 +1,78 @@
 :root {
+    /* デフォルト（ダークモード） */
     --bg-color: #0b0d17;
+    --card-bg: rgba(255,255,255,0.03);
     --primary: #00f2ea;
     --secondary: #ff0050;
     --text-color: #ffffff;
     --text-muted: #a0a0a0;
+    --border-color: rgba(255,255,255,0.1);
+    --header-bg: rgba(11, 13, 23, 0.8);
     --font-main: 'Montserrat', sans-serif;
     --font-mono: 'Jura', sans-serif;
 }
 
-/* カーソルを消す（カスタムカーソル用） */
-* { cursor: none; box-sizing: border-box; }
+/* ライトモード設定 */
+[data-theme="light"] {
+    --bg-color: #f0f2f5;
+    --card-bg: #ffffff;
+    --primary: #007bff;
+    --secondary: #ff4757;
+    --text-color: #333333;
+    --text-muted: #666666;
+    --border-color: rgba(0,0,0,0.1);
+    --header-bg: rgba(255, 255, 255, 0.8);
+}
 
+/* 基本設定 */
+* { box-sizing: border-box; }
 body {
     margin: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-main);
     overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
+    /* PCのみカスタムカーソルを表示するため、標準カーソルを消す */
+    cursor: none;
 }
 
 /* --- 1. ローディング画面 --- */
 #loader {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: #000;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
     transition: opacity 0.5s ease-out, visibility 0.5s;
 }
 .loader-content { text-align: center; }
 .loader-text {
-    font-size: 2rem;
-    font-weight: 900;
-    letter-spacing: 0.2em;
-    animation: pulse 1.5s infinite;
+    font-size: 2rem; font-weight: 900; letter-spacing: 0.2em;
+    color: #fff; animation: pulse 1.5s infinite;
 }
 .loader-bar {
     width: 200px; height: 2px; background: #333; margin: 20px auto 0;
     position: relative; overflow: hidden;
 }
 .bar-fill {
-    width: 0%; height: 100%; background: var(--primary);
+    width: 0%; height: 100%; background: #00f2ea; /* ローディングは常にシアンでOK */
     animation: load 2s ease-in-out forwards;
 }
 @keyframes load { 0% { width: 0%; } 100% { width: 100%; } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-/* 読み込み完了後に消すクラス */
 .loaded #loader { opacity: 0; visibility: hidden; pointer-events: none; }
 
 /* --- 2. カスタムカーソル --- */
 .cursor-dot, .cursor-outline {
-    position: fixed; top: 0; left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%; z-index: 5000;
-    pointer-events: none;
+    position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+    border-radius: 50%; z-index: 5000; pointer-events: none;
 }
 .cursor-dot { width: 8px; height: 8px; background: var(--primary); }
 .cursor-outline {
-    width: 40px; height: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 40px; height: 40px; border: 1px solid rgba(128, 128, 128, 0.5);
     transition: width 0.2s, height 0.2s, background 0.2s;
 }
-/* リンクに乗った時のホバーアクション */
 body.hovering .cursor-outline {
-    width: 60px; height: 60px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 60px; height: 60px; background: rgba(128, 128, 128, 0.1);
     border-color: var(--primary);
 }
 
@@ -75,18 +80,21 @@ body.hovering .cursor-outline {
 #particles-canvas {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1; pointer-events: none;
+    transition: opacity 0.3s;
 }
+[data-theme="light"] #particles-canvas { opacity: 0.3; }
 
 /* --- ヘッダー --- */
 .header {
     position: fixed; top: 0; width: 100%;
     padding: 20px 40px; display: flex; justify-content: space-between;
     align-items: center; z-index: 1000;
-    background: rgba(11, 13, 23, 0.8);
+    background: var(--header-bg);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s;
 }
-.logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -0.05em; }
+.logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -0.05em; color: var(--text-color); }
 .logo .dot { color: var(--primary); }
 
 .nav-pc a {
@@ -98,13 +106,21 @@ body.hovering .cursor-outline {
     border: 1px solid var(--primary); padding: 8px 20px; border-radius: 50px;
     color: var(--primary) !important;
 }
-.btn-nav:hover { background: var(--primary); color: #000 !important; }
+.btn-nav:hover { background: var(--primary); color: #fff !important; }
+
+/* モード切替ボタン */
+.theme-btn {
+    background: none; border: 1px solid var(--border-color);
+    color: var(--text-color); width: 40px; height: 40px;
+    border-radius: 50%; cursor: pointer; margin-left: 20px;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: 0.3s; font-size: 1.2rem;
+}
+.theme-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
 /* ハンバーガーメニュー */
 .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-.hamburger span {
-    width: 25px; height: 3px; background: #fff; transition: 0.3s;
-}
+.hamburger span { width: 25px; height: 3px; background: var(--text-color); transition: 0.3s; }
 
 /* スマホメニュー */
 .mobile-menu {
@@ -129,89 +145,91 @@ body.hovering .cursor-outline {
     color: var(--primary); letter-spacing: 0.3em; font-family: var(--font-mono);
     font-weight: bold; font-size: 0.9rem;
 }
-.main-title {
-    font-size: 4rem; margin: 10px 0 30px; line-height: 1.2;
-}
-/* カーソル点滅 */
+.main-title { font-size: 4rem; margin: 10px 0 30px; line-height: 1.2; }
 .cursor { animation: blink 1s step-end infinite; color: var(--secondary); }
 @keyframes blink { 50% { opacity: 0; } }
-
 .description { color: var(--text-muted); margin-bottom: 40px; line-height: 1.8; }
 .hero-btns { display: flex; gap: 20px; justify-content: center; }
 
 .btn-primary, .btn-secondary {
     padding: 15px 40px; text-decoration: none; border-radius: 5px;
-    font-weight: bold; transition: 0.3s; cursor: pointer;
+    font-weight: bold; transition: 0.3s; cursor: pointer; border: none; font-size: 1rem;
 }
 .btn-primary {
     background: linear-gradient(90deg, var(--primary), #00c6bf);
-    color: #000; box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
+    color: #fff; box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
 }
 .btn-primary:hover { transform: translateY(-3px); }
-.btn-secondary { border: 1px solid rgba(255,255,255,0.3); color: #fff; }
+.btn-secondary { border: 1px solid var(--text-muted); color: var(--text-color); background: transparent; }
 .btn-secondary:hover { background: rgba(255,255,255,0.1); }
 
 /* --- セクション共通 --- */
 .section { padding: 100px 0; }
-.section-dark { background: rgba(255,255,255,0.02); }
+.section-dark { background: rgba(0,0,0,0.02); }
+[data-theme="light"] .section-dark { background: #eef2f6; }
 .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-.section-title {
-    text-align: center; font-size: 2.5rem; margin-bottom: 60px;
-}
+.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 60px; }
 
 /* --- カードグリッド --- */
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 .card {
-    padding: 40px; border-radius: 15px; background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+    padding: 40px; border-radius: 15px; background: var(--card-bg);
+    border: 1px solid var(--border-color); transition: 0.3s;
 }
+[data-theme="light"] .card { box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 .card:hover { transform: translateY(-10px); border-color: var(--primary); }
 .icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
 .card p { color: var(--text-muted); line-height: 1.6; }
 
 /* --- ワークスギャラリー --- */
 .work-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-.work-item {
-    position: relative; height: 300px; border-radius: 10px; overflow: hidden;
-    cursor: pointer;
-}
+.work-item { position: relative; height: 300px; border-radius: 10px; overflow: hidden; cursor: pointer; }
 .work-img { width: 100%; height: 100%; transition: 0.5s; }
 .gradient-1 { background: linear-gradient(45deg, #FF0099, #493240); }
 .gradient-2 { background: linear-gradient(45deg, #00F260, #0575E6); }
 .gradient-3 { background: linear-gradient(45deg, #8E2DE2, #4A00E0); }
-
 .work-overlay {
     position: absolute; bottom: -100%; left: 0; width: 100%; padding: 30px;
-    background: linear-gradient(to top, #000, transparent);
-    transition: 0.4s;
+    background: linear-gradient(to top, #000, transparent); transition: 0.4s;
 }
 .work-item:hover .work-overlay { bottom: 0; }
 .work-item:hover .work-img { transform: scale(1.1); }
+.work-overlay h3, .work-overlay p, .work-overlay i { color: #fff; } /* 画像の上は常に白文字 */
 .btn-icon { color: #fff; font-size: 1.5rem; }
 
 /* --- スキルバー --- */
 .skills-wrapper { max-width: 700px; margin: 0 auto; }
 .skill-bar { margin-bottom: 25px; }
 .info { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; }
-.bar { width: 100%; height: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+.bar { width: 100%; height: 10px; background: rgba(128,128,128,0.2); border-radius: 10px; overflow: hidden; }
 .bar span { display: block; height: 100%; background: var(--primary); border-radius: 10px; }
 .html { width: 95%; } .js { width: 80%; } .react { width: 70%; } .design { width: 90%; }
 
-/* --- コンタクト＆フッター --- */
-.contact-container { text-align: center; }
+/* --- コンタクトフォーム --- */
+.contact-container { text-align: center; max-width: 600px; }
+.contact-form {
+    display: flex; flex-direction: column; gap: 15px; margin-top: 40px;
+}
+.contact-form input, .contact-form textarea {
+    width: 100%; padding: 15px; border-radius: 5px; border: 1px solid var(--border-color);
+    background: var(--card-bg); color: var(--text-color); font-family: inherit;
+}
+.contact-form input:focus, .contact-form textarea:focus {
+    outline: none; border-color: var(--primary);
+}
+
 .footer-socials { margin-top: 40px; font-size: 1.5rem; }
-.footer-socials a { color: #fff; margin: 0 15px; opacity: 0.6; transition: 0.3s; }
+.footer-socials a { color: var(--text-color); margin: 0 15px; opacity: 0.6; transition: 0.3s; }
 .footer-socials a:hover { color: var(--primary); opacity: 1; }
-.footer { text-align: center; padding: 40px 0; font-size: 0.8rem; color: #555; }
+.footer { text-align: center; padding: 40px 0; font-size: 0.8rem; color: var(--text-muted); }
 
 /* --- アニメーション --- */
 .fade-in-up { opacity: 0; animation: fadeUp 0.8s forwards; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-.delay-1 { animation-delay: 2.2s; } /* ローディングの後 */
+.delay-1 { animation-delay: 2.2s; } 
 .delay-2 { animation-delay: 2.4s; }
 .delay-3 { animation-delay: 2.6s; }
 .delay-4 { animation-delay: 2.8s; }
-
 .fade-in-scroll { opacity: 0; transform: translateY(50px); transition: 1s; }
 .fade-in-scroll.active { opacity: 1; transform: translateY(0); }
 
@@ -222,6 +240,6 @@ body.hovering .cursor-outline {
     .main-title { font-size: 2.5rem; }
     .grid-3 { grid-template-columns: 1fr; }
     .hero-btns { flex-direction: column; }
-    .cursor-dot, .cursor-outline { display: none; } /* スマホでカスタムカーソルは不要 */
-    * { cursor: auto; }
+    .cursor-dot, .cursor-outline { display: none; }
+    body { cursor: auto; }
 }
