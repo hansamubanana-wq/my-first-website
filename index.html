@@ -3,95 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Next Level Portfolio</title>
     <link rel="stylesheet" href="style.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     
+    <div class="bg-glow"></div>
+
     <header class="header">
-        <div class="logo">PORTFOLIO.</div>
+        <div class="logo">NEXUS<span class="dot">.</span></div>
         <nav class="nav">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
+            <a href="#services">Services</a>
             <a href="#works">Works</a>
+            <a href="#skills">Skills</a>
             <a href="#contact" class="btn-nav">Contact</a>
         </nav>
     </header>
 
     <section id="home" class="hero">
         <div class="content">
-            <p class="sub-title fade-in-up delay-1">WEB CREATOR</p>
-            <h1 class="main-title fade-in-up delay-2">BEYOND<br>LIMITS.</h1>
+            <div class="badge fade-in-up delay-1">AVAILABLE FOR WORK</div>
+            <h1 class="main-title fade-in-up delay-2">
+                DESIGN THE<br>
+                <span class="text-gradient">UNIMAGINABLE</span>
+            </h1>
             <p class="description fade-in-up delay-3">
-                常識にとらわれないデザイン。<br>
-                圧倒的な世界観を構築します。
+                想像を超えるデジタル体験を構築する。<br>
+                最新のテクノロジーと洗練されたデザインの融合。
             </p>
-            <div class="social-icons fade-in-up delay-4">
-                <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <div class="hero-btns fade-in-up delay-4">
+                <a href="#works" class="btn-primary">View Projects <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="#contact" class="btn-secondary">Contact Me</a>
             </div>
         </div>
-        <div class="overlay"></div>
     </section>
 
-    <section id="about" class="section-dark">
-        <div class="container fade-in-scroll">
-            <h2 class="section-title">About Me</h2>
-            <p class="section-desc">私について</p>
-            <div class="about-content">
-                <div class="text-box">
-                    <h3>好奇心を、形にする。</h3>
+    <div class="stats-bar fade-in-scroll">
+        <div class="stat-item">
+            <span class="stat-num">50+</span>
+            <span class="stat-label">Projects Done</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Satisfaction</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">24/7</span>
+            <span class="stat-label">Support</span>
+        </div>
+    </div>
+
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in-scroll">Our Services</h2>
+            <p class="section-subtitle fade-in-scroll">提供できる価値</p>
+            
+            <div class="grid-3">
+                <div class="card fade-in-scroll">
+                    <div class="icon-box"><i class="fa-solid fa-pen-nib"></i></div>
+                    <h3>UI/UX Design</h3>
+                    <p>ユーザー心理に基づいた、美しく使いやすいインターフェースを設計します。</p>
+                </div>
+                <div class="card fade-in-scroll">
+                    <div class="icon-box"><i class="fa-solid fa-code"></i></div>
+                    <h3>Web Development</h3>
+                    <p>高速でセキュアなWEBサイト構築。レスポンシブ対応も完璧に行います。</p>
+                </div>
+                <div class="card fade-in-scroll">
+                    <div class="icon-box"><i class="fa-solid fa-rocket"></i></div>
+                    <h3>Growth Support</h3>
+                    <p>公開後のSEO対策や運用保守まで、ビジネスの成長をサポートします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section section-dark">
+        <div class="container">
+            <div class="split-layout fade-in-scroll">
+                <div class="split-text">
+                    <h2 class="section-title text-left">Tech Stack</h2>
                     <p>
-                        こんにちは。WEB開発の世界へようこそ。<br>
-                        私は美しいコードと直感的なデザインで、新しい価値を創造することに情熱を注いでいます。<br>
-                        現在はHTML/CSS/JavaScriptを中心に、モダンなWEBサイト制作を学習しています。
+                        常に最新の技術トレンドをキャッチアップし、<br>
+                        プロジェクトに最適なツールを選定します。
                     </p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="works" class="section-black">
-        <div class="container fade-in-scroll">
-            <h2 class="section-title">Works</h2>
-            <p class="section-desc">制作実績</p>
-            
-            <div class="works-grid">
-                <div class="work-card">
-                    <div class="work-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                    <h3>Portfolio Site</h3>
-                    <p>現在ご覧いただいているこのサイトです。デザインとアニメーションにこだわりました。</p>
-                </div>
-                <div class="work-card">
-                    <div class="work-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-                    <h3>Coming Soon</h3>
-                    <p>次のプロジェクトを企画中です。スマートフォンアプリのようなUIを目指します。</p>
-                </div>
-                <div class="work-card">
-                    <div class="work-icon"><i class="fa-solid fa-database"></i></div>
-                    <h3>Coming Soon</h3>
-                    <p>データベースを活用したWEBサービスを開発予定です。</p>
+                <div class="skill-tags">
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>JavaScript</span>
+                    <span>React</span>
+                    <span>Next.js</span>
+                    <span>Node.js</span>
+                    <span>Python</span>
+                    <span>Git / GitHub</span>
+                    <span>Vercel</span>
+                    <span>Figma</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section-dark">
-        <div class="container fade-in-scroll text-center">
-            <h2 class="section-title">Contact</h2>
-            <p class="section-desc">お問い合わせ</p>
-            <p class="contact-text">制作のご依頼やご相談は、<br>SNSのDMからお気軽にどうぞ。</p>
-            <a href="https://twitter.com" class="btn btn-large">X (Twitter) で連絡する</a>
+    <section id="works" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in-scroll">Selected Works</h2>
+            <div class="grid-2">
+                <div class="project-card fade-in-scroll">
+                    <div class="project-image gradient-1"></div>
+                    <div class="project-info">
+                        <h3>Cyber Portfolio</h3>
+                        <p>Design / Development</p>
+                    </div>
+                </div>
+                <div class="project-card fade-in-scroll">
+                    <div class="project-image gradient-2"></div>
+                    <div class="project-info">
+                        <h3>E-Commerce App</h3>
+                        <p>UI Design / Concept</p>
+                    </div>
+                </div>
+                <div class="project-card fade-in-scroll">
+                    <div class="project-image gradient-3"></div>
+                    <div class="project-info">
+                        <h3>Corporate Site</h3>
+                        <p>Wordpress / PHP</p>
+                    </div>
+                </div>
+                <div class="project-card fade-in-scroll">
+                    <div class="project-image gradient-4"></div>
+                    <div class="project-info">
+                        <h3>Mobile Application</h3>
+                        <p>Flutter / Firebase</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2024 My Portfolio. All Rights Reserved.</p>
+    <section id="contact" class="section">
+        <div class="container contact-wrapper fade-in-scroll">
+            <div class="contact-box">
+                <h2>Get In Touch</h2>
+                <p>新しいプロジェクトのご相談をお待ちしています。</p>
+                
+                <form class="dummy-form" onsubmit="event.preventDefault();">
+                    <input type="text" placeholder="Name" class="input-field">
+                    <input type="email" placeholder="Email" class="input-field">
+                    <textarea placeholder="Message" rows="4" class="input-field"></textarea>
+                    <button class="btn-primary w-100">Send Message</button>
+                </form>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 NEXUS Design. All Rights Reserved.</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
