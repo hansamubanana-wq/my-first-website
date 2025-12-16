@@ -1,8 +1,7 @@
-/* 基本設定 */
 :root {
-    --bg-color: #0a0a0a; /* 深い黒 */
+    --bg-color: #0a0a0a;
     --text-color: #ffffff;
-    --accent-color: #3b82f6; /* 青色のアクセント */
+    --accent-color: #3b82f6;
 }
 
 body, html {
@@ -12,94 +11,109 @@ body, html {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    overflow: hidden; /* スクロールを禁止して没入感を出す */
+    overflow: hidden;
 }
 
-/* 画面全体の設定 */
 .hero {
-    height: 100vh; /* 画面の高さいっぱいに広げる */
+    height: 100vh;
     display: flex;
-    justify-content: center; /* 左右中央揃え */
-    align-items: center;     /* 上下中央揃え */
+    justify-content: center;
+    align-items: center;
     text-align: center;
     position: relative;
-    /* 高級感のあるグラデーション背景 */
     background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
 }
 
-/* コンテンツのデザイン */
 .content {
-    z-index: 2; /* 背景より手前に表示 */
+    z-index: 2;
     position: relative;
     padding: 20px;
 }
 
 .sub-title {
     font-size: 0.9rem;
-    letter-spacing: 0.3em; /* 文字の間隔を広げて洗練させる */
+    letter-spacing: 0.3em;
     color: var(--accent-color);
     margin-bottom: 20px;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .main-title {
-    font-family: 'Montserrat', sans-serif; /* インパクトのあるフォント */
-    font-size: 5rem; /* 超巨大な文字 */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 5rem;
     line-height: 1.1;
     margin: 0 0 30px 0;
     letter-spacing: -0.02em;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.5); /* 文字に影をつけて立体感を出す */
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .description {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #888; /* 少しグレーにして主役を引き立てる */
+    color: #888;
     font-weight: 300;
+    margin-bottom: 40px; /* ボタンとの距離 */
 }
 
-/* 装飾用の光の演出 */
+/* ▼▼▼ 追加したボタンのデザイン ▼▼▼ */
+.btn {
+    display: inline-block;
+    padding: 15px 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* 薄い枠線 */
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease; /* アニメーションのなめらかさ */
+    background: rgba(255, 255, 255, 0.05); /* 半透明の背景 */
+    border-radius: 30px; /* 丸角 */
+}
+
+/* マウスを乗せた時の動き */
+.btn:hover {
+    background: var(--accent-color); /* 青色に変化 */
+    border-color: var(--accent-color);
+    transform: scale(1.05); /* 少し大きくなる */
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); /* 光る */
+}
+
 .overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* 画面全体にうっすらと青い光の幕をかける */
     background: linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
     z-index: 1;
     pointer-events: none;
 }
 
-/* ▼▼▼ アニメーションの定義（ここが重要！） ▼▼▼ */
-
-/* 下からフワッと浮き上がる動きの名前を定義 */
 @keyframes fadeInUp {
     from {
-        opacity: 0; /* 最初は透明 */
-        transform: translateY(30px); /* 少し下に配置 */
+        opacity: 0;
+        transform: translateY(30px);
     }
     to {
-        opacity: 1; /* 最後は不透明 */
-        transform: translateY(0); /* 元の位置へ */
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-/* アニメーションを適用するクラス */
 .fade-in-up {
-    opacity: 0; /* 初期状態は隠しておく */
-    /* 0.8秒かけて、緩急をつけて動かす */
+    opacity: 0;
     animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-/* 順番に出てくるように時間をずらす設定 */
 .delay-1 { animation-delay: 0.2s; }
 .delay-2 { animation-delay: 0.4s; }
 .delay-3 { animation-delay: 0.8s; }
 
-/* スマホ向けの調整 */
 @media (max-width: 768px) {
     .main-title {
-        font-size: 3rem; /* スマホでは文字を少し小さく */
+        font-size: 3rem;
+    }
+    .btn {
+        padding: 12px 30px;
     }
 }
