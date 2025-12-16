@@ -9,43 +9,91 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     
-    <header class="header fade-in-down">
+    <header class="header">
         <div class="logo">PORTFOLIO.</div>
         <nav class="nav">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#works">Works</a>
+            <a href="#contact" class="btn-nav">Contact</a>
         </nav>
     </header>
 
-    <div class="hero">
+    <section id="home" class="hero">
         <div class="content">
             <p class="sub-title fade-in-up delay-1">WEB CREATOR</p>
-            
             <h1 class="main-title fade-in-up delay-2">BEYOND<br>LIMITS.</h1>
-            
             <p class="description fade-in-up delay-3">
                 常識にとらわれないデザイン。<br>
                 圧倒的な世界観を構築します。
             </p>
-
-            <div class="btn-container fade-in-up delay-3">
-                <a href="#" class="btn">View Works</a>
-            </div>
-
             <div class="social-icons fade-in-up delay-4">
                 <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
                 <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
-        
         <div class="overlay"></div>
-    </div>
+    </section>
+
+    <section id="about" class="section-dark">
+        <div class="container fade-in-scroll">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-desc">私について</p>
+            <div class="about-content">
+                <div class="text-box">
+                    <h3>好奇心を、形にする。</h3>
+                    <p>
+                        こんにちは。WEB開発の世界へようこそ。<br>
+                        私は美しいコードと直感的なデザインで、新しい価値を創造することに情熱を注いでいます。<br>
+                        現在はHTML/CSS/JavaScriptを中心に、モダンなWEBサイト制作を学習しています。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="works" class="section-black">
+        <div class="container fade-in-scroll">
+            <h2 class="section-title">Works</h2>
+            <p class="section-desc">制作実績</p>
+            
+            <div class="works-grid">
+                <div class="work-card">
+                    <div class="work-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3>Portfolio Site</h3>
+                    <p>現在ご覧いただいているこのサイトです。デザインとアニメーションにこだわりました。</p>
+                </div>
+                <div class="work-card">
+                    <div class="work-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h3>Coming Soon</h3>
+                    <p>次のプロジェクトを企画中です。スマートフォンアプリのようなUIを目指します。</p>
+                </div>
+                <div class="work-card">
+                    <div class="work-icon"><i class="fa-solid fa-database"></i></div>
+                    <h3>Coming Soon</h3>
+                    <p>データベースを活用したWEBサービスを開発予定です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-dark">
+        <div class="container fade-in-scroll text-center">
+            <h2 class="section-title">Contact</h2>
+            <p class="section-desc">お問い合わせ</p>
+            <p class="contact-text">制作のご依頼やご相談は、<br>SNSのDMからお気軽にどうぞ。</p>
+            <a href="https://twitter.com" class="btn btn-large">X (Twitter) で連絡する</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 My Portfolio. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
